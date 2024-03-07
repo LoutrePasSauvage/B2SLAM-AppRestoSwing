@@ -1,23 +1,48 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
+import javax.swing.JTable;
 
 public class Table {
+
     public void Tables() {
         // Création d'une nouvelle instance de JFrame
         JFrame frame = new JFrame("Liste des commandes");
         frame.setLayout(new BorderLayout());
+        try {
+            URL url = new URL("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
+            Image img = ImageIO.read(url);
+            frame.setIconImage(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Titre
-        JLabel title = new JLabel("Liste des commandes", SwingConstants.LEFT);
-        frame.add(title, BorderLayout.NORTH);
+        try {
+            URL url = new URL("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoRestoNoBg.png?raw=true");
+            Image img = ImageIO.read(url);
+            Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionnement de l'image
+            ImageIcon icon = new ImageIcon(scaledImg);
+            JLabel imageLabel = new JLabel(icon);
 
-        // Création d'une nouvelle police
-        Font font = new Font("Default", Font.PLAIN, 45);
+            JLabel titleLabel = new JLabel("Liste des commandes", SwingConstants.LEFT);
+            titleLabel.setForeground(styles.secondaryColor);
+            titleLabel.setOpaque(true);
+            titleLabel.setBackground(styles.primaryColor);
+            titleLabel.setFont(styles.titleFont);
 
-        // Application de la police au JLabel
-        title.setFont(font);
+            JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            panel.setBackground(styles.primaryColor);
+            panel.add(imageLabel);
+            panel.add(titleLabel);
+            frame.add(panel, BorderLayout.NORTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         // Données pour le tableau
         Object[][] data = new Object[10][6];
@@ -26,39 +51,41 @@ public class Table {
             Actions actions = new Actions();
             // Appel de la méthode getCommandeAttente
             actions.getCommandeAttente();
-            // Récupération des données
-            /*data[i][0] = actions.id;
-            data[i][1] = actions.date;
-            data[i][2] = actions.heure;
-            data[i][3] = actions.etat;
-            data[i][4] = actions.nb_plats;
-            data[i][5] = actions.montant;*/
+            // Récupération des données de la méthode getCommandeAttente
+            data[i][0] = "ID";
+            data[i][1] = "Date";
+            data[i][2] = "Heure";
+            data[i][3] = "Etat";
+            data[i][4] = "NB plats";
+            data[i][5] = "Montant";
+
         }
 
         // Noms des colonnes
         String[] columnNames = {"ID", "Date", "Heure", "Etat", "NB plats", "Montant"};
 
 
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-        Font font2 = new Font("Default", Font.PLAIN, 25);
+        table.setRowHeight(40);
+
         JTableHeader header = table.getTableHeader();
 
         // police de l'en-tête
-        header.setFont(font2);
+        header.setFont(styles.titleFont);
 
-        Font font3 = new Font("Default", Font.PLAIN, 15);
-        table.setFont(font3);
+        table.setFont(styles.textFont);
 
         // Ajout du tableau à un JScrollPane
         JScrollPane scrollPane = new JScrollPane(table);
-
+        scrollPane.setBackground(styles.secondaryColor);
         // Ajout d'une bordure vide pour créer un espace entre les bords du tableau et les bords de la fenêtre
         scrollPane.setBorder(BorderFactory.createEmptyBorder(25, 55, 10, 55));
-
-        // Espacement entre les lignes du tableau
-        //table.setPadding(10);
-
 
         // Ajout du JScrollPane au centre de la fenêtre
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -66,7 +93,7 @@ public class Table {
         // Configuration de la fermerture de la fenêtre
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(1080, 820);
+        frame.setSize(1280, 820);
 
         // Affichage de la fenêtre
         frame.setVisible(true);
