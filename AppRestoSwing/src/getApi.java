@@ -71,11 +71,22 @@ public class getApi {
         con.disconnect();
 
         //convert String to JSONString
-        JSONObject myResponse = new JSONObject(response.toString());
+       // Remove [] from the response
+        String responseString = response.toString().replace("[", "").replace("]", "");
+        System.out.println("Response: " + response.toString());
+        // Convert JSONString to JSONObject
+
+        JSONArray myResponse = new JSONArray(responseString);
         Map<String, String> responseMap = new HashMap<String, String>();
+        // Create ArrauList to store the response
 
-        System.out.println();
+        for(int i = 0; i < myResponse.length(); i++) {
+            JSONObject obj = myResponse.getJSONObject(i);
+            // Add the response to the ArrayList
 
+        }
+
+        return responseMap;
 
     }
 
