@@ -1,3 +1,6 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -44,25 +47,33 @@ public class Table {
         }
 
 
-        // Données pour le tableau
-        Object[][] data = new Object[10][6];
-        for (int i = 0; i < 10; i++) {
-            // Création d'une nouvelle instance de Actions
-            Actions actions = new Actions();
-            // Appel de la méthode getCommandeAttente
-            actions.getCommandeAttente();
-            // Récupération des données de la méthode getCommandeAttente
-            data[i][0] = "ID";
-            data[i][1] = "Date";
-            data[i][2] = "Heure";
-            data[i][3] = "Etat";
-            data[i][4] = "NB plats";
-            data[i][5] = "Montant";
+        String dataJson;
+        Actions actions = new Actions();
 
+        dataJson = actions.getCommandeAttente();
+        JSONArray jsonArray = new JSONArray(dataJson.toString());
+
+
+        // Données pour le tableau
+        Object[][] data = new Object[jsonArray.length()][6];
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            // Création d'une nouvelle instance de Actions
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            // Appel de la méthode getCommandeAttente
+
+
+            // Récupération des données de la méthode getCommandeAttente
+            data[i][0] = jsonObject.get("id_commande");
+            data[i][1] = jsonObject.get("id_user");
+            data[i][2] = jsonObject.get("id_etat");
+            data[i][3] = jsonObject.get("date");
+            data[i][4] = jsonObject.get("total_commande");
+            data[i][5] = jsonObject.get("type_conso");
         }
 
         // Noms des colonnes
-        String[] columnNames = {"ID", "Date", "Heure", "Etat", "NB plats", "Montant"};
+        String[] columnNames = {"ID", "User", "Etat", "Date", "Total TTC", "Conso"};
 
 
         JTable table = new JTable(data, columnNames) {
