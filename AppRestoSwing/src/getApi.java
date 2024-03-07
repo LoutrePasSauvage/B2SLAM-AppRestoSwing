@@ -1,6 +1,7 @@
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import org.json.*;
@@ -36,7 +37,7 @@ public class getApi {
         this.params = params;
     }
 
-    public Map<String, String> GetRequest() throws IOException {
+    public String GetRequest() throws IOException {
 
 
         URL newurl = new URL(this.getUrl());
@@ -57,8 +58,6 @@ public class getApi {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-
-
         String inputLine;
 
         StringBuffer response = new StringBuffer();
@@ -69,24 +68,10 @@ public class getApi {
         in.close();
 
         con.disconnect();
-
-        //convert String to JSONString
-       // Remove [] from the response
-        String responseString = response.toString().replace("[", "").replace("]", "");
-        System.out.println("Response: " + response.toString());
         // Convert JSONString to JSONObject
 
-        JSONArray myResponse = new JSONArray(responseString);
-        Map<String, String> responseMap = new HashMap<String, String>();
-        // Create ArrauList to store the response
+        return response.toString();
 
-        for(int i = 0; i < myResponse.length(); i++) {
-            JSONObject obj = myResponse.getJSONObject(i);
-            // Add the response to the ArrayList
-
-        }
-
-        return responseMap;
 
     }
 

@@ -8,7 +8,7 @@ public class Main {
         Actions actions = new Actions();
 
         actions.getCommandeAttente();
-        actions.getCommandeRefuser(220);
+
 
         Table table = new Table();
         table.Tables();
