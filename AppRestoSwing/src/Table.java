@@ -101,6 +101,27 @@ public class Table {
         // Ajout du JScrollPane au centre de la fenêtre
         frame.add(scrollPane, BorderLayout.CENTER);
 
+
+        // add button to other window
+        JButton buttonDetail = new JButton("Détails");
+        buttonDetail.setFont(styles.textFont);
+
+        buttonDetail.setBackground(styles.primaryColor);
+
+        buttonDetail.setForeground(styles.secondaryColor);
+
+        buttonDetail.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        frame.add(buttonDetail, BorderLayout.SOUTH);
+
+
+        buttonDetail.addActionListener(e -> {
+            // Création d'une nouvelle instance de JFrame
+
+            TableDetail tableDetail = new TableDetail();
+            tableDetail.TableDetails();
+
+        });
         // Configuration de la fermerture de la fenêtre
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
