@@ -7,9 +7,5 @@ public class Main {
 
         Table table = new Table();
         table.Tables();
-
-        Actions actions = new Actions();
-
-        actions.getCommandeAttente();
     }
 }

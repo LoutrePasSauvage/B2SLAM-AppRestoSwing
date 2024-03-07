@@ -14,22 +14,25 @@ public class Table {
         frame.add(title, BorderLayout.NORTH);
 
         // Création d'une nouvelle police
-        Font font = new Font("Default", Font.PLAIN, 45); // Changez 20 à la taille de police que vous voulez
+        Font font = new Font("Default", Font.PLAIN, 45);
 
         // Application de la police au JLabel
         title.setFont(font);
 
         // Données pour le tableau
-        Object[][] data = new Object[12][6];
-        for (int i = 0; i < 12; i++) {
-            // Création d'une nouvelle instance de Commande
-            Commande commande = new Commande(1, "2021-01-01", "12:00", "En cours", 2, 25.0);
-            data[i][0] = commande.getId();
-            data[i][1] = commande.getDate();
-            data[i][2] = commande.getHeure();
-            data[i][3] = commande.getEtat();
-            data[i][4] = commande.getNbPlats();
-            data[i][5] = commande.getPrix();
+        Object[][] data = new Object[10][6];
+        for (int i = 0; i < 10; i++) {
+            // Création d'une nouvelle instance de Actions
+            Actions actions = new Actions();
+            // Appel de la méthode getCommandeAttente
+            actions.getCommandeAttente();
+            // Récupération des données
+            /*data[i][0] = actions.id;
+            data[i][1] = actions.date;
+            data[i][2] = actions.heure;
+            data[i][3] = actions.etat;
+            data[i][4] = actions.nb_plats;
+            data[i][5] = actions.montant;*/
         }
 
         // Noms des colonnes
