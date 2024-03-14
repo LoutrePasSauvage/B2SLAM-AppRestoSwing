@@ -1,6 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import org.json.*;
 
@@ -11,13 +14,37 @@ public class Windows {
 
     public Windows(String WinName, String title, int WinWidth, int WinHeight) {
         frame = new JFrame(WinName);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(WinWidth, WinHeight);
         frame.setVisible(true);
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBackground(Color.white);
         panel.add(new JLabel(title));
         frame.add(panel, BorderLayout.NORTH);
+
+
+    }
+
+    public void setIcon(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            Image img = ImageIO.read(url);
+            frame.setIconImage(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setImage(String imageUrl) {
+        try {
+            URL url = new URL("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoRestoNoBg.png?raw=true");
+            Image img = ImageIO.read(url);
+            Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionnement de l'image
+            ImageIcon icon = new ImageIcon(scaledImg);
+            JLabel imageLabel = new JLabel(icon);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public JFrame getFrame() {
