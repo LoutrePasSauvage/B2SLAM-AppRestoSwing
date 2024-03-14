@@ -12,17 +12,26 @@ public class Windows {
     private JFrame frame = null;
     private JPanel panel = new JPanel();
 
-    public Windows(String WinName, String title, int WinWidth, int WinHeight) {
+    public Windows(String WinName,  int WinWidth, int WinHeight) {
         frame = new JFrame(WinName);
+        frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(WinWidth, WinHeight);
         frame.setVisible(true);
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panel.setBackground(Color.white);
-        panel.add(new JLabel(title));
+        panel.setBackground(styles.primaryColor);
         frame.add(panel, BorderLayout.NORTH);
 
 
+    }
+
+    public void setTitle(String title) {
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setForeground(styles.secondaryColor);
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(styles.primaryColor);
+        titleLabel.setFont(styles.titleFont);
+        panel.add(titleLabel);
     }
 
     public void setIcon(String imageUrl) {
@@ -35,7 +44,7 @@ public class Windows {
         }
     }
 
-    public void setImage(String imageUrl, JPanel panel) {
+    public void setImage(String imageUrl) {
         try {
             URL url = new URL("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoRestoNoBg.png?raw=true");
             Image img = ImageIO.read(url);
@@ -87,6 +96,7 @@ public class Windows {
                 return false;
             }
         };
+
         table.setRowHeight(30);
         JTableHeader header = table.getTableHeader();
         header.setBackground(Color.yellow);
