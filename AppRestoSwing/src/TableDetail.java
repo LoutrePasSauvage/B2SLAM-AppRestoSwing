@@ -16,8 +16,6 @@ public class TableDetail {
             window.setImage("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
             window.setButton("Retour", "Retour");
 
-
-
         } catch(Exception e) {
         System.err.println("Message : " + e.getMessage());
         }

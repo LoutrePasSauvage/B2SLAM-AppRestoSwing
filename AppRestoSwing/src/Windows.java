@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+
 import org.json.*;
 
 public class Windows {
@@ -12,7 +13,7 @@ public class Windows {
     private JFrame frame = null;
     private JPanel panel = new JPanel();
 
-    public Windows(String WinName,  int WinWidth, int WinHeight) {
+    public Windows(String WinName, int WinWidth, int WinHeight) {
         frame = new JFrame(WinName);
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,7 +53,7 @@ public class Windows {
             ImageIcon icon = new ImageIcon(scaledImg);
             JLabel imageLabel = new JLabel(icon);
             panel.add(imageLabel);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -72,7 +73,7 @@ public class Windows {
 
         buttonDetail.addActionListener(e -> {
             switch (action) {
-                case "details":
+                case "Détails":
                     TableDetail tableDetail = new TableDetail();
                     tableDetail.TableDetails();
                     break;
@@ -104,7 +105,7 @@ public class Windows {
         JSONArray jsonArray = new JSONArray(data);
         String[] columnNames = new String[0];
         // get Columns names
-        for(int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
             columnNames = JSONObject.getNames(obj);
         }
@@ -115,7 +116,7 @@ public class Windows {
             JSONObject obj = jsonArray.getJSONObject(i);
             for (int j = 0; j < columnNames.length; j++) {
                 // detect if is Array
-                if(obj.get(columnNames[j]) instanceof JSONArray) {
+                if (obj.get(columnNames[j]) instanceof JSONArray) {
                     JSONArray arr = obj.getJSONArray(columnNames[j]);
                     DataJson[i][j] = arr.toString();
                 } else {
