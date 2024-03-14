@@ -135,6 +135,8 @@ public class Windows {
 
         });
 
+        JTableHeader headerT = table.getTableHeader();
+        headerT.setReorderingAllowed(false);
         table.setRowHeight(30);
         JTableHeader header = table.getTableHeader();
         header.setFont(styles.titleFont);
@@ -144,6 +146,7 @@ public class Windows {
         scrollPane.setBorder(BorderFactory.createEmptyBorder(25, 55, 10, 55));
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setVisible(true);
+
 
 
     }
