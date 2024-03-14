@@ -99,9 +99,11 @@ public class Windows {
 
         table.setRowHeight(30);
         JTableHeader header = table.getTableHeader();
-        header.setBackground(Color.yellow);
+        header.setFont(styles.titleFont);
+        table.setFont(styles.textFont);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(0, 0, width, height);
+        scrollPane.setBackground(styles.secondaryColor);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(25, 55, 10, 55));
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.setVisible(true);
 
