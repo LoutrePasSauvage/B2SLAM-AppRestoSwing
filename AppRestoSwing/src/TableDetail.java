@@ -12,7 +12,7 @@ public class TableDetail {
 
             window.createTable(1200, 700, api.GetRequest());
             window.setIcon("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
-            window.setImage("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
+            window.setImage("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true", window.getPanel());
 
 
         } catch(Exception e) {

@@ -9,15 +9,15 @@ import org.json.*;
 
 public class Windows {
 
-    JFrame frame = null;
-
+    private JFrame frame = null;
+    private JPanel panel = new JPanel();
 
     public Windows(String WinName, String title, int WinWidth, int WinHeight) {
         frame = new JFrame(WinName);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(WinWidth, WinHeight);
         frame.setVisible(true);
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBackground(Color.white);
         panel.add(new JLabel(title));
         frame.add(panel, BorderLayout.NORTH);
@@ -35,13 +35,14 @@ public class Windows {
         }
     }
 
-    public void setImage(String imageUrl) {
+    public void setImage(String imageUrl, JPanel panel) {
         try {
             URL url = new URL("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoRestoNoBg.png?raw=true");
             Image img = ImageIO.read(url);
             Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionnement de l'image
             ImageIcon icon = new ImageIcon(scaledImg);
             JLabel imageLabel = new JLabel(icon);
+            panel.add(imageLabel);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +50,10 @@ public class Windows {
 
     public JFrame getFrame() {
         return this.frame;
+    }
+
+    public JPanel getPanel() {
+        return this.panel;
     }
 
     public void createTable(int width, int height, String data) {
