@@ -1,6 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +12,8 @@ public class Windows {
 
     private JFrame frame = null;
     private JPanel panel = new JPanel();
+
+    private JButton buttonDetail = new JButton();
 
     public Windows(String WinName, int WinWidth, int WinHeight) {
         frame = new JFrame(WinName);
@@ -59,7 +61,7 @@ public class Windows {
     }
 
     public void setButton(String name, String action) {
-        JButton buttonDetail = new JButton(name);
+        buttonDetail = new JButton(name);
         buttonDetail.setFont(styles.textFont);
 
         buttonDetail.setBackground(styles.primaryColor);
@@ -71,23 +73,7 @@ public class Windows {
 
         frame.add(buttonDetail, BorderLayout.SOUTH);
 
-        buttonDetail.addActionListener(e -> {
-            switch (action) {
-                case "Détails":
-                    TableDetail tableDetail = new TableDetail();
-                    tableDetail.TableDetails();
-                    break;
-                case "Retour":
-                    frame.dispose();
-                    break;
-                case "test2":
 
-                    break;
-                default:
-                    break;
-            }
-
-        });
     }
 
     public JFrame getFrame() {
@@ -99,7 +85,7 @@ public class Windows {
     }
 
 
-    public void createTable(int width, int height, String data) {
+    public void createTable(int width, int height, String data, String action, HashMap<String, String> params) throws JSONException {
 
 
         JSONArray jsonArray = new JSONArray(data);
@@ -130,6 +116,24 @@ public class Windows {
                 return false;
             }
         };
+
+        buttonDetail.addActionListener(e -> {
+            switch (action) {
+                case "Détails":
+                    TableDetail tableDetail = new TableDetail();
+                    tableDetail.TableDetails("localhost/B2SLAM-AppRestoWeb/api/commande_refuser.php", params);
+                    break;
+                case "Retour":
+                    frame.dispose();
+                    break;
+                case "test2":
+
+                    break;
+                default:
+                    break;
+            }
+
+        });
 
         table.setRowHeight(30);
         JTableHeader header = table.getTableHeader();

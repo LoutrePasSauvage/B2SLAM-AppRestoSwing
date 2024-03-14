@@ -34,13 +34,17 @@ public class getApi {
     }
 
     public void setParams(Map<String, String> params) {
+
+
         this.params = params;
+
+
     }
 
     public String GetRequest() throws IOException {
 
 
-        URL newurl = new URL(this.getUrl());
+        URL newurl = new URL(this.getUrl() + "?" + this.getParams().toString());
         HttpURLConnection con = (HttpURLConnection) newurl.openConnection();
 
         con.setRequestMethod("GET");

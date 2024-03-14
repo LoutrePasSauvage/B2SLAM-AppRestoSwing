@@ -19,7 +19,7 @@ public class Table {
             getApi api = new getApi("http://localhost/B2SLAM-AppRestoWeb/api/commandes_en_attente.php", params);
             Windows window = new Windows("TableCommandes", 1270, 800);
 
-            window.createTable(1200, 700, api.GetRequest());
+            window.createTable(1200, 700, api.GetRequest(), "Détails", params);
             window.setTitle("Commandes");
             window.setIcon("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
             window.setImage("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
