@@ -57,6 +57,22 @@ public class Windows {
         }
     }
 
+    public void setButton(String name) {
+        JButton buttonDetail = new JButton(name);
+        buttonDetail.setFont(styles.textFont);
+
+        buttonDetail.setBackground(styles.primaryColor);
+
+        buttonDetail.setForeground(styles.secondaryColor);
+
+        buttonDetail.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+
+        frame.add(buttonDetail, BorderLayout.SOUTH);
+
+
+    }
+
     public JFrame getFrame() {
         return this.frame;
     }
