@@ -14,7 +14,8 @@ public class TableDetail {
             window.setTitle("DetailsCommandes");
             window.setIcon("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
             window.setImage("https://github.com/LoutrePasSauvage/B2SLAM-AppRestoWeb/blob/main/img/logoResto.png?raw=true");
-            window.setButton("test");
+            window.setButton("Retour", "Retour");
+
 
 
         } catch(Exception e) {

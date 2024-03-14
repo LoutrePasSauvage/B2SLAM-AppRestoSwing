@@ -57,7 +57,7 @@ public class Windows {
         }
     }
 
-    public void setButton(String name) {
+    public void setButton(String name, String action) {
         JButton buttonDetail = new JButton(name);
         buttonDetail.setFont(styles.textFont);
 
@@ -70,7 +70,23 @@ public class Windows {
 
         frame.add(buttonDetail, BorderLayout.SOUTH);
 
+        buttonDetail.addActionListener(e -> {
+            switch (action) {
+                case "details":
+                    TableDetail tableDetail = new TableDetail();
+                    tableDetail.TableDetails();
+                    break;
+                case "Retour":
+                    frame.dispose();
+                    break;
+                case "test2":
 
+                    break;
+                default:
+                    break;
+            }
+
+        });
     }
 
     public JFrame getFrame() {
@@ -80,6 +96,7 @@ public class Windows {
     public JPanel getPanel() {
         return this.panel;
     }
+
 
     public void createTable(int width, int height, String data) {
 
