@@ -3,8 +3,9 @@
 public class Main {
     public static void main(String[] args) {
 
-        Table table = new Table();
-        table.Tables();
-        
+       Frame frame = new Frame("AppRestoSwing");
+       frame.fillObjects();
+       frame.createTable();
+
     }
 }

@@ -9,15 +9,24 @@ public class Ligne {
     private int qte;
     private double totalLigneHT;
 
-    public Ligne(int idLigne, int idCommande, int idProduit, int qte, double totalLigneHT) {
+    private  String libelleProduit;
+
+    public Ligne(int idLigne, int idCommande, int idProduit, int qte, double totalLigneHT, String libelleProduit) {
         this.idLigne = idLigne;
         this.idCommande = idCommande;
         this.idProduit = idProduit;
         this.qte = qte;
         this.totalLigneHT = totalLigneHT;
+        this.libelleProduit = libelleProduit;
     }
 
-    // Getters et Setters
+    public String getLibelleProduit() {
+        return libelleProduit;
+    }
+
+    public void setLibelleProduit(String libelleProduit) {
+        this.libelleProduit = libelleProduit;
+    }
     public int getIdLigne() {
         return idLigne;
     }
@@ -56,5 +65,5 @@ public class Ligne {
 
     public void setTotalLigneHT(double totalLigneHT) {
         this.totalLigneHT = totalLigneHT;
-    }    
+    }
 }
