@@ -20,6 +20,7 @@ public class Ligne {
         this.libelleProduit = libelleProduit;
     }
 
+
     public String getLibelleProduit() {
         return libelleProduit;
     }
@@ -27,6 +28,7 @@ public class Ligne {
     public void setLibelleProduit(String libelleProduit) {
         this.libelleProduit = libelleProduit;
     }
+
     public int getIdLigne() {
         return idLigne;
     }

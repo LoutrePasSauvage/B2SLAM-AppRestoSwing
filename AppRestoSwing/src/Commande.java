@@ -13,7 +13,9 @@ public class Commande {
 
     private ArrayList<Ligne> lignesCommande;
 
+
     public Commande(int idCommande, int idUser, int idEtat, double totalCommande, int typeConso, String date, ArrayList<Ligne> lignesCommande)
+
     {
         this.idCommande = idCommande;
         this.idUser = idUser;
@@ -80,3 +82,5 @@ public class Commande {
         this.lignesCommande = lignesCommande;
     }
 }
+
+
