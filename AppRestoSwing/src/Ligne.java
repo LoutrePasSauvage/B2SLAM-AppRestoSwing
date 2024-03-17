@@ -17,7 +17,6 @@ public class Ligne {
         this.totalLigneHT = totalLigneHT;
     }
 
-    // Getters et Setters
     public int getIdLigne() {
         return idLigne;
     }
