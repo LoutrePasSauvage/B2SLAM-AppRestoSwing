@@ -81,6 +81,16 @@ public class Commande {
     public void setLignesCommande(ArrayList<Ligne> lignesCommande) {
         this.lignesCommande = lignesCommande;
     }
+
+    public void printCommande() {
+        System.out.println("idCommande: " + idCommande);
+        System.out.println("idUser: " + idUser);
+        System.out.println("idEtat: " + idEtat);
+        System.out.println("totalCommande: " + totalCommande);
+        System.out.println("typeConso: " + typeConso);
+        System.out.println("date: " + date);
+        System.out.println("lignesCommande: " + lignesCommande);
+    }
 }
 
 

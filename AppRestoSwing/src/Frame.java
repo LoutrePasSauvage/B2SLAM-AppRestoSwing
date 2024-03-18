@@ -80,36 +80,18 @@ public class Frame {
                     commande.getString("date"),
                     lignesCommandes
                     );
-        }
-    }
 
-    public void createTable() throws JSONException {
-
-        Actions actions = new Actions();
-        String data = actions.getCommandeAttente();
-        JSONArray jsonArray = new JSONArray(data);
-        String[] columnNames = new String[0];
-        // get Columns names
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            columnNames = JSONObject.getNames(obj);
-        }
-
-        String[][] DataJson = new String[jsonArray.length()][columnNames.length];
-
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject commande = jsonArray.getJSONObject(i);
-
-            for (int j = 0; j < columnNames.length; j++) {
-
-                DataJson[i][j] = commande.get(columnNames[j]).toString();
-
-            }
+            DataJson[i][0] = newCommande.getDate();
+            DataJson[i][1] = newCommande.getLignesCommande().toString();
+            DataJson[i][2] = String.valueOf(newCommande.getTypeConso());
+            DataJson[i][3] = String.valueOf(newCommande.getIdCommande());
+            DataJson[i][4] = String.valueOf(newCommande.getTotalCommande());
+            DataJson[i][5] = String.valueOf(newCommande.getIdUser());
+            DataJson[i][6] = String.valueOf(newCommande.getIdEtat());
 
 
         }
+
         JTable table = new JTable(DataJson, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -148,6 +130,37 @@ public class Frame {
         frame.add(buttonPanel, BorderLayout.WEST); // Add the JPanel to the left of the frame
         frame.add(scrollPanel, BorderLayout.CENTER);
         frame.setVisible(true);
+
+    }
+
+    public void createTable() throws JSONException {
+
+        Actions actions = new Actions();
+        String data = actions.getCommandeAttente();
+        JSONArray jsonArray = new JSONArray(data);
+        String[] columnNames = new String[0];
+        // get Columns names
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+            columnNames = JSONObject.getNames(obj);
+        }
+
+        String[][] DataJson = new String[jsonArray.length()][columnNames.length];
+
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            JSONObject commande = jsonArray.getJSONObject(i);
+
+            for (int j = 0; j < columnNames.length; j++) {
+
+                DataJson[i][j] = commande.get(columnNames[j]).toString();
+
+            }
+
+
+        }
+
 
     }
 

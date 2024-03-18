@@ -68,4 +68,13 @@ public class Ligne {
     public void setTotalLigneHT(double totalLigneHT) {
         this.totalLigneHT = totalLigneHT;
     }
+
+    public void PrintLigne() {
+        System.out.println("idLigne: " + idLigne);
+        System.out.println("idCommande: " + idCommande);
+        System.out.println("idProduit: " + idProduit);
+        System.out.println("qte: " + qte);
+        System.out.println("totalLigneHT: " + totalLigneHT);
+        System.out.println("libelleProduit: " + libelleProduit);
+    }
 }
