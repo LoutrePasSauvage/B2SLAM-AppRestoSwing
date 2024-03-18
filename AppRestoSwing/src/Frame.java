@@ -16,9 +16,13 @@ public class Frame {
     private CardLayout cardLayout;
     public Frame(String title) {
         frame = new JFrame(title);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1270, 800);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        frame.setUndecorated(true);
         frame.setVisible(true);
+
         frame.setLayout(new BorderLayout());
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -102,7 +106,7 @@ public class Frame {
 
         JTableHeader headerT = table.getTableHeader();
         headerT.setReorderingAllowed(false);
-        table.setRowHeight(30);
+        table.setRowHeight(50);
 
         JTableHeader header = table.getTableHeader();
 
@@ -120,6 +124,14 @@ public class Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                // erase all the content of the panel
+                contentPanel.removeAll();
+                contentPanel.revalidate();
+                contentPanel.repaint();
+
+                // get the Commande selected by id
+                int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
+
             }
         }, "Détail");
 
@@ -129,40 +141,12 @@ public class Frame {
 
         frame.add(buttonPanel, BorderLayout.WEST); // Add the JPanel to the left of the frame
         frame.add(scrollPanel, BorderLayout.CENTER);
+        contentPanel.setVisible(true);
         frame.setVisible(true);
 
     }
 
-    public void createTable() throws JSONException {
 
-        Actions actions = new Actions();
-        String data = actions.getCommandeAttente();
-        JSONArray jsonArray = new JSONArray(data);
-        String[] columnNames = new String[0];
-        // get Columns names
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            columnNames = JSONObject.getNames(obj);
-        }
-
-        String[][] DataJson = new String[jsonArray.length()][columnNames.length];
-
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject commande = jsonArray.getJSONObject(i);
-
-            for (int j = 0; j < columnNames.length; j++) {
-
-                DataJson[i][j] = commande.get(columnNames[j]).toString();
-
-            }
-
-
-        }
-
-
-    }
 
 
 
