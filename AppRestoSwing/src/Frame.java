@@ -18,7 +18,8 @@ public class Frame {
         frame = new JFrame(title);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setSize(1270, 720);
+        frame.setLocationRelativeTo(null);
 
         frame.setUndecorated(true);
         frame.setVisible(true);
@@ -120,10 +121,9 @@ public class Frame {
             table.setRowSelectionInterval(0, 0);
         }
 
-        JButton button = this.createButton("Détail", new ActionListener() {
+        JButton buttonDetails = this.createButton("Détail", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 // erase all the content of the panel
                 contentPanel.removeAll();
                 contentPanel.revalidate();
@@ -131,22 +131,39 @@ public class Frame {
 
                 // get the Commande selected by id
                 int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
-
             }
         }, "Détail");
 
-        JPanel buttonPanel = new JPanel(); // Create a new JPanel
-        buttonPanel.add(button); // Add
+        JButton buttonExit = this.createButton("Exit", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        }, "Exit");
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(12, 1));
+        buttonPanel.setBackground(styles.primaryColor);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonExit);
 
 
-        frame.add(buttonPanel, BorderLayout.WEST); // Add the JPanel to the left of the frame
+        frame.add(buttonPanel, BorderLayout.WEST);
         frame.add(scrollPanel, BorderLayout.CENTER);
         contentPanel.setVisible(true);
         frame.setVisible(true);
 
     }
-
-
 
 
 
