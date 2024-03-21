@@ -1,17 +1,19 @@
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
-public class Frame {
+public class FrameDetails {
     private JFrame frame;
     private JPanel contentPanel;
     private CardLayout cardLayout;
-    public Frame(String title) {
+    public FrameDetails(String title) {
         frame = new JFrame(title);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +136,7 @@ public class Frame {
                 int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
             }
         }, buttonPanel);
-        buttonDetails.setBackground(styles.detailsColor);
+        buttonDetails.setBackground(styles.secondaryColor);
 
 
         JButton buttonExit = this.createButton("Exit", new ActionListener() {
