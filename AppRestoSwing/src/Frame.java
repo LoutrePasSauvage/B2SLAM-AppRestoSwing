@@ -11,6 +11,7 @@ public class Frame {
     private JFrame frame;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+
     public Frame(String title) {
         frame = new JFrame(title);
 
@@ -26,7 +27,7 @@ public class Frame {
         frame.add(contentPanel, BorderLayout.CENTER);
     }
 
-    public void fillObjects () {
+    public void fillObjects() {
 
         Actions actions = new Actions();
         String data = actions.getCommandeAttente();
@@ -50,15 +51,14 @@ public class Frame {
 
         String[][] DataJson = new String[jsonArray.length()][columnNames.length];
 
-        for(int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject commande = jsonArray.getJSONObject(i);
 
 
-
             // store lignesCommande
-            if(commande.has("lignes")) {
+            if (commande.has("lignes")) {
                 JSONArray lignes = commande.getJSONArray("lignes");
-                for(int j = 0; j < lignes.length(); j++) {
+                for (int j = 0; j < lignes.length(); j++) {
                     JSONObject ligne = lignes.getJSONObject(j);
                     Ligne newLigne = new Ligne(
                             ligne.getInt("id_ligne"),
@@ -74,7 +74,7 @@ public class Frame {
 
             // si total_commande est null on le met à 0.0
 
-            if(commande.isNull("total_commande")) {
+            if (commande.isNull("total_commande")) {
                 commande.put("total_commande", 0.0);
             }
 
@@ -86,7 +86,7 @@ public class Frame {
                     commande.getInt("type_conso"),
                     commande.getString("date"),
                     lignesCommandes
-                    );
+            );
 
             DataJson[i][0] = newCommande.getDate();
             DataJson[i][1] = newCommande.getLignesCommande().toString();
@@ -119,6 +119,7 @@ public class Frame {
         JScrollPane scrollPanel = new JScrollPane(table);
         scrollPanel.setBackground(styles.secondaryColor);
 
+
         if (table.getSelectedRow() == -1 && table.getRowCount() > 0) {
             table.setRowSelectionInterval(0, 0);
         }
@@ -132,7 +133,6 @@ public class Frame {
             public void actionPerformed(ActionEvent e) {
 
 
-
                 // affiche le détail de la commande a partir de la ligne selectionnée
                 int selectedRow = table.getSelectedRow();
                 int idCommande = Integer.parseInt((String) table.getValueAt(selectedRow, 3));
@@ -141,19 +141,19 @@ public class Frame {
 
                 String columnNames[] = {"id_produit", "qte", "total_ligne_ht", "libelle"};
                 String DataJson[][] = new String[lignesCommandes.size() + 1][columnNames.length + 1];
-                for(int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject commande = jsonArray.getJSONObject(i);
-                    if(commande.getInt("id_commande") == idCommande) {
+                    if (commande.getInt("id_commande") == idCommande) {
                         JSONArray lignes = commande.getJSONArray("lignes");
-                           for(int j = 0; j < lignes.length(); j++) {
-                               DataJson = new String[lignes.length()][4];
-                                 JSONObject ligne = lignes.getJSONObject(j);
-                                    DataJson[i][0] = String.valueOf(ligne.getInt("id_produit"));
-                                    DataJson[i][1] = String.valueOf(ligne.getInt("qte"));
-                                    DataJson[i][2] = String.valueOf(ligne.getDouble("total_ligne_ht"));
-                               DataJson[i][3] = ligne.getString("libelle");
+                        for (int j = 0; j < lignes.length(); j++) {
+                            DataJson = new String[lignes.length()][4];
+                            JSONObject ligne = lignes.getJSONObject(j);
+                            DataJson[i][0] = String.valueOf(ligne.getInt("id_produit"));
+                            DataJson[i][1] = String.valueOf(ligne.getInt("qte"));
+                            DataJson[i][2] = String.valueOf(ligne.getDouble("total_ligne_ht"));
+                            DataJson[i][3] = ligne.getString("libelle");
 
-                            }
+                        }
                     }
                 }
 
@@ -176,6 +176,8 @@ public class Frame {
 
                 JScrollPane scrollPanel = new JScrollPane(table);
                 scrollPanel.setBackground(styles.secondaryColor);
+                contentPanel.add(scrollPanel, "mainPanel"); // Ajoutez cette ligne ici
+
 
                 panel.add(scrollPanel);
 
@@ -184,18 +186,22 @@ public class Frame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        cardLayout.show(contentPanel, "main");
+                        JPanel panel = new JPanel();
+                        panel.setLayout(cardLayout);
+                        panel.add(scrollPanel, "mainPanel"); // Use "mainPanel" instead of "Panel"
 
+                        Frame.this.frame.setContentPane(panel);
+                        fillObjects();
+                        Frame.this.frame.revalidate();
+                        Frame.this.frame.repaint();
 
                     }
                 }, panel);
                 buttonReturn.setBackground(styles.primaryColor);
 
                 // Add panel to the content panel
-
-
-
                 Frame.this.frame.setContentPane(panel);
+
                 Frame.this.frame.revalidate();
                 Frame.this.frame.repaint();
 
@@ -225,10 +231,7 @@ public class Frame {
     public void ResetAll() {
 
 
-
     }
-
-
 
 
     public JButton createButton(String name, ActionListener actionListener, JPanel buttonPanel) {
@@ -241,8 +244,4 @@ public class Frame {
         buttonPanel.add(button, name);
         return button;
     }
-
-
-
-
 }
