@@ -1,13 +1,10 @@
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.*;
+import java.util.*;
 
 
 public class Frame {
@@ -121,6 +118,10 @@ public class Frame {
             table.setRowSelectionInterval(0, 0);
         }
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(12, 1));
+        buttonPanel.setBackground(styles.primaryColor);
+
         JButton buttonDetails = this.createButton("Détail", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,49 +133,37 @@ public class Frame {
                 // get the Commande selected by id
                 int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
             }
-        }, "Détail");
+        }, buttonPanel);
+        buttonDetails.setBackground(styles.secondaryColor);
+
 
         JButton buttonExit = this.createButton("Exit", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
-        }, "Exit");
+        }, buttonPanel);
+        buttonExit.setBackground(styles.warningColor);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(12, 1));
-        buttonPanel.setBackground(styles.primaryColor);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
-        buttonPanel.add(buttonDetails);
         buttonPanel.add(buttonDetails);
         buttonPanel.add(buttonExit);
-
 
         frame.add(buttonPanel, BorderLayout.WEST);
         frame.add(scrollPanel, BorderLayout.CENTER);
         contentPanel.setVisible(true);
         frame.setVisible(true);
-
     }
 
 
 
-    public JButton createButton(String name, ActionListener actionListener, Object constraints) {
+    public JButton createButton(String name, ActionListener actionListener, JPanel buttonPanel) {
         JButton button = new JButton(name);
         button.setFont(styles.textFont);
         button.setBackground(styles.primaryColor);
         button.setForeground(styles.secondaryColor);
         button.setPreferredSize(new Dimension(150, 50));
         button.addActionListener(actionListener);
-        contentPanel.add(button, name);
+        buttonPanel.add(button, name);
         return button;
     }
 
