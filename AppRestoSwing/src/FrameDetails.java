@@ -124,19 +124,15 @@ public class FrameDetails {
         buttonPanel.setLayout(new GridLayout(12, 1));
         buttonPanel.setBackground(styles.primaryColor);
 
-        JButton buttonDetails = this.createButton("Détail", new ActionListener() {
+        JButton buttonRetour = this.createButton("Retour", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // erase all the content of the panel
-                contentPanel.removeAll();
-                contentPanel.revalidate();
-                contentPanel.repaint();
-
-                // get the Commande selected by id
-                int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
+                frame.dispose();
+                Frame frame = new Frame("AppRestoSwing");
+                frame.fillObjects();
             }
         }, buttonPanel);
-        buttonDetails.setBackground(styles.secondaryColor);
+        buttonRetour.setBackground(styles.detailsColor);
 
 
         JButton buttonExit = this.createButton("Exit", new ActionListener() {
@@ -147,7 +143,7 @@ public class FrameDetails {
         }, buttonPanel);
         buttonExit.setBackground(styles.warningColor);
 
-        buttonPanel.add(buttonDetails);
+        buttonPanel.add(buttonRetour);
         buttonPanel.add(buttonExit);
 
         frame.add(buttonPanel, BorderLayout.WEST);
@@ -168,8 +164,5 @@ public class FrameDetails {
         buttonPanel.add(button, name);
         return button;
     }
-
-
-
 
 }
