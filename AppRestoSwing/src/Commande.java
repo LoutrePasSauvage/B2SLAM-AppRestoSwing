@@ -82,6 +82,7 @@ public class Commande {
         this.lignesCommande = lignesCommande;
     }
 
+
     public void printCommande() {
         System.out.println("idCommande: " + idCommande);
         System.out.println("idUser: " + idUser);

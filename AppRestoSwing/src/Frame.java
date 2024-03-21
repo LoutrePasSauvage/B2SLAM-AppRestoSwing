@@ -16,9 +16,7 @@ public class Frame {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1270, 720);
-        frame.setLocationRelativeTo(null);
 
-        frame.setUndecorated(true);
         frame.setVisible(true);
 
         frame.setLayout(new BorderLayout());
@@ -32,6 +30,13 @@ public class Frame {
 
         Actions actions = new Actions();
         String data = actions.getCommandeAttente();
+
+        if (data == null) {
+            JLabel label = new JLabel("Aucune commande en attente");
+            label.setFont(styles.titleFont);
+            return;
+        }
+
         JSONArray jsonArray = new JSONArray(data);
 
 
@@ -125,15 +130,78 @@ public class Frame {
         JButton buttonDetails = this.createButton("Détail", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // erase all the content of the panel
-                contentPanel.removeAll();
-                contentPanel.revalidate();
-                contentPanel.repaint();
 
-                // get the Commande selected by id
-                int idCommande = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
+
+
+                // affiche le détail de la commande a partir de la ligne selectionnée
+                int selectedRow = table.getSelectedRow();
+                int idCommande = Integer.parseInt((String) table.getValueAt(selectedRow, 3));
+                //new Jpanel
+                JPanel panel = new JPanel();
+
+                String columnNames[] = {"id_produit", "qte", "total_ligne_ht", "libelle"};
+                String DataJson[][] = new String[lignesCommandes.size() + 1][columnNames.length + 1];
+                for(int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject commande = jsonArray.getJSONObject(i);
+                    if(commande.getInt("id_commande") == idCommande) {
+                        JSONArray lignes = commande.getJSONArray("lignes");
+                           for(int j = 0; j < lignes.length(); j++) {
+                               DataJson = new String[lignes.length()][4];
+                                 JSONObject ligne = lignes.getJSONObject(j);
+                                    DataJson[i][0] = String.valueOf(ligne.getInt("id_produit"));
+                                    DataJson[i][1] = String.valueOf(ligne.getInt("qte"));
+                                    DataJson[i][2] = String.valueOf(ligne.getDouble("total_ligne_ht"));
+                               DataJson[i][3] = ligne.getString("libelle");
+
+                            }
+                    }
+                }
+
+                JTable table = new JTable(DataJson, columnNames) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+                    }
+
+
+                };
+
+// Add table properties
+
+                JTableHeader headerT = table.getTableHeader();
+                headerT.setReorderingAllowed(false);
+                table.setRowHeight(50);
+                headerT.setFont(styles.titleFont);
+                table.setFont(styles.textFont);
+
+                JScrollPane scrollPanel = new JScrollPane(table);
+                scrollPanel.setBackground(styles.secondaryColor);
+
+                panel.add(scrollPanel);
+
+                // Add button to return to the main view
+                JButton buttonReturn = createButton("Retour", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        cardLayout.show(contentPanel, "main");
+
+
+                    }
+                }, panel);
+                buttonReturn.setBackground(styles.primaryColor);
+
+                // Add panel to the content panel
+
+
+
+                Frame.this.frame.setContentPane(panel);
+                Frame.this.frame.revalidate();
+                Frame.this.frame.repaint();
+
+
             }
-        }, buttonPanel);
+        }, contentPanel);
         buttonDetails.setBackground(styles.detailsColor);
 
 
@@ -153,6 +221,13 @@ public class Frame {
         contentPanel.setVisible(true);
         frame.setVisible(true);
     }
+
+    public void ResetAll() {
+
+
+
+    }
+
 
 
 
