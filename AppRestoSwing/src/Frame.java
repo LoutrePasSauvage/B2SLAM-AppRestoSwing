@@ -96,7 +96,6 @@ public class Frame {
             DataJson[i][5] = String.valueOf(newCommande.getIdUser());
             DataJson[i][6] = String.valueOf(newCommande.getIdEtat());
 
-
         }
 
         JTable table = new JTable(DataJson, columnNames) {
@@ -185,16 +184,15 @@ public class Frame {
                 JButton buttonReturn = createButton("Retour", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
                         JPanel panel = new JPanel();
-                        panel.setLayout(cardLayout);
-                        panel.add(scrollPanel, "mainPanel"); // Use "mainPanel" instead of "Panel"
+                        panel.setLayout(new BorderLayout());
+                        panel.add(buttonPanel, BorderLayout.WEST); // Add the buttonPanel back
+                        panel.add(scrollPanel, BorderLayout.CENTER); // Add the scrollPanel to the center
 
                         Frame.this.frame.setContentPane(panel);
                         fillObjects();
                         Frame.this.frame.revalidate();
                         Frame.this.frame.repaint();
-
                     }
                 }, panel);
                 buttonReturn.setBackground(styles.primaryColor);
