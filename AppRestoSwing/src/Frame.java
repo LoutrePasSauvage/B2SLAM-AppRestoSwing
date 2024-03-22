@@ -144,14 +144,13 @@ public class Frame {
                     JSONObject commande = jsonArray.getJSONObject(i);
                     if (commande.getInt("id_commande") == idCommande) {
                         JSONArray lignes = commande.getJSONArray("lignes");
+                        DataJson = new String[lignes.length()][4];
                         for (int j = 0; j < lignes.length(); j++) {
-                            DataJson = new String[lignes.length()][4];
                             JSONObject ligne = lignes.getJSONObject(j);
-                            DataJson[i][0] = String.valueOf(ligne.getInt("id_produit"));
-                            DataJson[i][1] = String.valueOf(ligne.getInt("qte"));
-                            DataJson[i][2] = String.valueOf(ligne.getDouble("total_ligne_ht"));
-                            DataJson[i][3] = ligne.getString("libelle");
-
+                            DataJson[j][0] = String.valueOf(ligne.getInt("id_produit"));
+                            DataJson[j][1] = String.valueOf(ligne.getInt("qte"));
+                            DataJson[j][2] = String.valueOf(ligne.getDouble("total_ligne_ht"));
+                            DataJson[j][3] = ligne.getString("libelle");
                         }
                     }
                 }
@@ -165,7 +164,6 @@ public class Frame {
 
                 };
 
-// Add table properties
 
                 JTableHeader headerT = table.getTableHeader();
                 headerT.setReorderingAllowed(false);
@@ -175,7 +173,7 @@ public class Frame {
 
                 JScrollPane scrollPanel = new JScrollPane(table);
                 scrollPanel.setBackground(styles.secondaryColor);
-                contentPanel.add(scrollPanel, "mainPanel"); // Ajoutez cette ligne ici
+                contentPanel.add(scrollPanel, "mainPanel");
 
 
                 panel.add(scrollPanel);
