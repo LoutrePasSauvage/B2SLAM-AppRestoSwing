@@ -1,53 +1,52 @@
 # RestoSwing
 
-A brief description of the project.
+Une brève description du projet.
 
-## Endpoints
+## Points d'accès
 
-- **/API/commandes_en_attente.php**: Retrieves a list of pending orders.
-  - Method: GET
-  - Parameters: None
-  - Response: JSON array of pending orders
+- **/API/commandes_en_attente.php** : Récupère une liste de commandes en attente.
+  - Méthode : GET
+  - Paramètres : Aucun
+  - Réponse : Tableau JSON des commandes en attente
   
-<!-- Add more endpoints as needed -->
+<!-- Ajouter plus de points d'accès au besoin -->
 
-## Method Usage
+## Utilisation des méthodes
 
 ### Actions.java
 
-- **getCommandeAttente()**: Retrieves pending orders from the specified endpoint.
+- **getCommandeAttente()** : Récupère les commandes en attente à partir du point d'accès spécifié.
 
 ### getApi.java
 
-- **GetRequest()**: Sends a GET request to the specified URL with parameters.
+- **GetRequest()** : Envoie une requête GET à l'URL spécifiée avec des paramètres.
 
 ### Ligne.java
 
-- Represents a line item in an order.
+- Représente un article dans une commande.
 
 ### Commande.java
 
-- Represents an order.
+- Représente une commande.
 
 ### Frame.java
 
-- Represents the graphical user interface for displaying orders.
+- Représente l'interface utilisateur graphique pour afficher les commandes.
 
-## Dependencies
+## Dépendances
 
 - Java Development Kit (JDK)
-- Swing Library (Included in Java SE)
-- org.json Library (Add dependency information if any)
+- Swing Library (Inclus dans Java SE)
+- org.json Library (Ajoutez les informations sur les dépendances si nécessaire)
 
-## Usage
+## Utilisation
 
-1. Clone the repository.
+1. Clonez le dépôt.
 
-2. Open the project in your preferred Java IDE.
+2. Ouvrez le projet dans votre IDE Java préféré.
 
-3. Ensure that all dependencies are installed.
+3. Assurez-vous que toutes les dépendances sont installées.
 
-4. Compile and run the `Frame` class.
+4. Compilez et exécutez la classe `Frame`.
 
-5. View pending orders in the graphical user interface.
-
+5. Visualisez les commandes en attente dans l'interface utilisateur graphique.
