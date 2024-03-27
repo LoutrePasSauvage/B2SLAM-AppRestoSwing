@@ -181,15 +181,17 @@ public class Frame {
                 JButton buttonReturn = createButton("Retour", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JPanel panel = new JPanel();
+                        returnToMainPanel(contentPanel);
+
+                        /*JPanel panel = new JPanel();
                         panel.setLayout(new BorderLayout());
-                        panel.add(buttonPanel, BorderLayout.WEST); // Add the buttonPanel back
-                        panel.add(scrollPanel, BorderLayout.CENTER); // Add the scrollPanel to the center
+                        panel.add(buttonPanel, BorderLayout.WEST);
+                        panel.add(scrollPanel, BorderLayout.CENTER);
 
                         Frame.this.frame.setContentPane(panel);
                         fillObjects();
                         Frame.this.frame.revalidate();
-                        Frame.this.frame.repaint();
+                        Frame.this.frame.repaint();*/
                     }
                 }, panel);
                 buttonReturn.setBackground(styles.primaryColor);
@@ -197,6 +199,10 @@ public class Frame {
                 JButton buttonAccepter = createButton("Accepter", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        Actions actions = new Actions();
+                        actions.setCommandeAccpeter(idCommande);
+
+                        returnToMainPanel(contentPanel);
 
                     }
                 }, panel);
@@ -239,9 +245,16 @@ public class Frame {
         frame.setVisible(true);
     }
 
-    public void ResetAll() {
 
-
+    public void returnToMainPanel(JPanel panel) {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(panel, BorderLayout.WEST);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        frame.setContentPane(mainPanel);
+        fillObjects();
+        frame.revalidate();
+        frame.repaint();
     }
 
 
