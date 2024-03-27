@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class Actions {
     public String getCommandeAttente() {
-        String url = "http://localhost/B2SLAM-AppRestoWeb/API/commandes_en_attente.php";
+        //String url = "http://localhost/B2SLAM-AppRestoWeb/API/commandes_en_attente.php";
+        String url = "http://localhost/B2/api/commandes_en_attente.php";
         Map<String, String> params = new HashMap<String, String>();
         params.put("", "");
         String json;

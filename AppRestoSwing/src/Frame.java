@@ -178,7 +178,6 @@ public class Frame {
 
                 panel.add(scrollPanel);
 
-                // Add button to return to the main view
                 JButton buttonReturn = createButton("Retour", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -194,6 +193,22 @@ public class Frame {
                     }
                 }, panel);
                 buttonReturn.setBackground(styles.primaryColor);
+
+                JButton buttonAccepter = createButton("Accepter", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                }, panel);
+                buttonAccepter.setBackground(styles.okColor);
+
+                JButton buttonRefuser = createButton("Refuser", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                }, panel);
+                buttonRefuser.setBackground(styles.warningColor);
 
                 // Add panel to the content panel
                 Frame.this.frame.setContentPane(panel);
