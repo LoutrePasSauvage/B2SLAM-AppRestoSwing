@@ -200,7 +200,7 @@ public class Frame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Actions actions = new Actions();
-                        actions.setCommandeAccpeter(idCommande);
+                        actions.setCommandeAccepter(idCommande);
 
                         returnToMainPanel(contentPanel);
 
@@ -211,6 +211,10 @@ public class Frame {
                 JButton buttonRefuser = createButton("Refuser", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        Actions actions = new Actions();
+                        actions.setCommandeRefuser(idCommande);
+
+                        returnToMainPanel(contentPanel);
 
                     }
                 }, panel);

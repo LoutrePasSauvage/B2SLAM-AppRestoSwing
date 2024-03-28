@@ -44,7 +44,16 @@ public class getApi {
     public String GetRequest() throws IOException {
 
 
-        URL newurl = new URL(this.getUrl() + "?" + this.getParams().toString());
+        //get key value pairs from Map
+        String key = "", value = "";
+
+        for(Map.Entry<String, String> entry : this.getParams().entrySet()) {
+           key = entry.getKey();
+           value = entry.getValue();
+
+        }
+        URL newurl = new URL(this.getUrl() + "?" + key + "=" + value);
+        System.out.println(newurl);
         HttpURLConnection con = (HttpURLConnection) newurl.openConnection();
 
         con.setRequestMethod("GET");
