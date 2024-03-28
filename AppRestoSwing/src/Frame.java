@@ -5,27 +5,45 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.net.*;
 
 
 public class Frame {
+    private static final int FRAME_WIDTH = 1270;
+    private static final int FRAME_HEIGHT = 720;
+    private static final String LOGO_URL = "http://localhost/B2SLAM-AppRestoWeb/img/logoResto.png";
+
     private JFrame frame;
     private JPanel contentPanel;
     private CardLayout cardLayout;
 
     public Frame(String title) {
         frame = new JFrame(title);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1270, 720);
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setLocationRelativeTo(null);
 
-        frame.setVisible(true);
+        setIconImage(LOGO_URL);
 
         frame.setLayout(new BorderLayout());
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
         frame.add(contentPanel, BorderLayout.CENTER);
+
+        frame.setVisible(true);
     }
+
+    private void setIconImage(String url) {
+        try {
+            ImageIcon logoIcon = new ImageIcon(new URL(url));
+            Image logoImage = logoIcon.getImage();
+            frame.setIconImage(logoImage);
+        } catch (MalformedURLException e) {
+            System.err.println("Failed to load logo image from URL: " + url);
+        }
+    }
+
 
     public void fillObjects() {
 
