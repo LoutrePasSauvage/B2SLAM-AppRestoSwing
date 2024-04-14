@@ -50,3 +50,11 @@ Une brève description du projet.
 4. Compilez et exécutez la classe `Frame`.
 
 5. Visualisez les commandes en attente dans l'interface utilisateur graphique.
+
+## INTERACTIONS AVEC LE LOGICIEL :
+
+1/ Sélectionnez la commande d'un client à gérer
+
+2/ Cliquez sur "Détail"
+
+3/ Sélectionnez l'action souhaitée : "accepter" ou "refuser"
