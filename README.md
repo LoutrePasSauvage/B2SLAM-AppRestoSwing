@@ -58,3 +58,10 @@ Une brève description du projet.
 2/ Cliquez sur "Détail"
 
 3/ Sélectionnez l'action souhaitée : "accepter" ou "refuser"
+
+## INSTALLATION :
+
+Une fois les instructions de l'onglet "Utilisation" réalisé ci-dessus de ce document.
+Veuillez modifier les lien d'accès à l'API selon l'emplacement du répertoire du projet :
+3 liens à modiifier dans Actions.java (ligne 9, 26 et 42)
+1 lien à modifier dans Frame.java (ligne 14).
