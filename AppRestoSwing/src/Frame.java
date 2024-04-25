@@ -7,15 +7,16 @@ import java.awt.event.*;
 import java.util.*;
 import java.net.*;
 
-
 public class Frame {
     private static final int FRAME_WIDTH = 1270;
     private static final int FRAME_HEIGHT = 720;
-    private static final String LOGO_URL = "http://localhost/B2SLAM-AppRestoWeb/img/logoResto.png";
+    //private static final String LOGO_URL = "http://localhost/B2SLAM-AppRestoWeb/img/logoResto.png";
+    private static final String LOGO_URL = "http://localhost/projets/B2SLAM-AppRestoWeb/img/logoResto.png";
+    private static final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 50;
 
-    private JFrame frame;
-    private JPanel contentPanel;
-    private CardLayout cardLayout;
+    private final JFrame frame;
+    private final JPanel contentPanel;
 
     public Frame(String title) {
         frame = new JFrame(title);
@@ -23,24 +24,24 @@ public class Frame {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setLocationRelativeTo(null);
 
-        setIconImage(LOGO_URL);
+        setIconImage();
 
         frame.setLayout(new BorderLayout());
         contentPanel = new JPanel();
-        cardLayout = new CardLayout();
+        CardLayout cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
         frame.add(contentPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
     }
 
-    private void setIconImage(String url) {
+    private void setIconImage() {
         try {
-            ImageIcon logoIcon = new ImageIcon(new URL(url));
+            ImageIcon logoIcon = new ImageIcon(new URL(Frame.LOGO_URL));
             Image logoImage = logoIcon.getImage();
             frame.setIconImage(logoImage);
         } catch (MalformedURLException e) {
-            System.err.println("Failed to load logo image from URL: " + url);
+            System.err.println("L'image n'est pas correctement téléchargé: " + Frame.LOGO_URL);
         }
     }
 
@@ -145,6 +146,7 @@ public class Frame {
         buttonPanel.setLayout(new GridLayout(12, 1));
         buttonPanel.setBackground(styles.primaryColor);
 
+
         JButton buttonDetails = this.createButton("Détail", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,8 +158,8 @@ public class Frame {
                 //new Jpanel
                 JPanel panel = new JPanel();
 
-                String columnNames[] = {"id_produit", "qte", "total_ligne_ht", "libelle"};
-                String DataJson[][] = new String[lignesCommandes.size() + 1][columnNames.length + 1];
+                String[] columnNames = {"id_produit", "qte", "total_ligne_ht", "libelle"};
+                String[][] DataJson = new String[lignesCommandes.size() + 1][columnNames.length + 1];
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject commande = jsonArray.getJSONObject(i);
                     if (commande.getInt("id_commande") == idCommande) {
@@ -201,7 +203,7 @@ public class Frame {
                     public void actionPerformed(ActionEvent e) {
                         returnToMainPanel(contentPanel);
 
-                        /*JPanel panel = new JPanel();
+                        JPanel panel = new JPanel();
                         panel.setLayout(new BorderLayout());
                         panel.add(buttonPanel, BorderLayout.WEST);
                         panel.add(scrollPanel, BorderLayout.CENTER);
@@ -209,10 +211,22 @@ public class Frame {
                         Frame.this.frame.setContentPane(panel);
                         fillObjects();
                         Frame.this.frame.revalidate();
-                        Frame.this.frame.repaint();*/
+                        Frame.this.frame.repaint();
                     }
                 }, panel);
                 buttonReturn.setBackground(styles.primaryColor);
+
+                JButton buttonPret = createButton("Commande prête", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Actions actions = new Actions();
+                        actions.setCommandePret(idCommande);
+
+                        returnToMainPanel(contentPanel);
+                    }
+                }, panel);
+                buttonPret.setBackground(styles.okColor);
+                buttonPret.setEnabled(false); // Désactive le bouton "Commande prête" par défaut
 
                 JButton buttonAccepter = createButton("Accepter", new ActionListener() {
                     @Override
@@ -220,7 +234,7 @@ public class Frame {
                         Actions actions = new Actions();
                         actions.setCommandeAccepter(idCommande);
 
-                        returnToMainPanel(contentPanel);
+                        buttonPret.setEnabled(true); // Permet de rendre le bouton "Commande prête" cliquable
 
                     }
                 }, panel);
@@ -237,6 +251,7 @@ public class Frame {
                     }
                 }, panel);
                 buttonRefuser.setBackground(styles.warningColor);
+
 
                 // Add panel to the content panel
                 Frame.this.frame.setContentPane(panel);
