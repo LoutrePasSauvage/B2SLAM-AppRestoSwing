@@ -68,10 +68,14 @@ public class Frame {
             columnNames = JSONObject.getNames(obj);
         }
 
-        String[][] DataJson = new String[jsonArray.length()][columnNames.length];
+        String[] extendedColumnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
+        extendedColumnNames[columnNames.length] = "status";
+
+        String[][] DataJson = new String[jsonArray.length()][extendedColumnNames.length];
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject commande = jsonArray.getJSONObject(i);
+
 
 
             // store lignesCommande
@@ -79,14 +83,7 @@ public class Frame {
                 JSONArray lignes = commande.getJSONArray("lignes");
                 for (int j = 0; j < lignes.length(); j++) {
                     JSONObject ligne = lignes.getJSONObject(j);
-                    Ligne newLigne = new Ligne(
-                            ligne.getInt("id_ligne"),
-                            commande.getInt("id_commande"),
-                            ligne.getInt("id_produit"),
-                            ligne.getInt("qte"),
-                            ligne.getDouble("total_ligne_ht"),
-                            ligne.getString("libelle")
-                    );
+                    Ligne newLigne = new Ligne(ligne.getInt("id_ligne"), commande.getInt("id_commande"), ligne.getInt("id_produit"), ligne.getInt("qte"), ligne.getDouble("total_ligne_ht"), ligne.getString("libelle"));
                     lignesCommandes.add(newLigne);
                 }
             }
@@ -97,15 +94,7 @@ public class Frame {
                 commande.put("total_commande", 0.0);
             }
 
-            Commande newCommande = new Commande(
-                    commande.getInt("id_commande"),
-                    commande.getInt("id_user"),
-                    commande.getInt("id_etat"),
-                    commande.getDouble("total_commande"),
-                    commande.getInt("type_conso"),
-                    commande.getString("date"),
-                    lignesCommandes
-            );
+            Commande newCommande = new Commande(commande.getInt("id_commande"), commande.getInt("id_user"), commande.getInt("id_etat"), commande.getDouble("total_commande"), commande.getInt("type_conso"), commande.getString("date"), lignesCommandes);
 
             DataJson[i][0] = newCommande.getDate();
             DataJson[i][1] = newCommande.getLignesCommande().toString();
@@ -114,10 +103,11 @@ public class Frame {
             DataJson[i][4] = String.valueOf(newCommande.getTotalCommande());
             DataJson[i][5] = String.valueOf(newCommande.getIdUser());
             DataJson[i][6] = String.valueOf(newCommande.getIdEtat());
+            DataJson[i][7] = commande.getInt("id_etat") == 2 ? "en cours" : "à confirmer";
 
         }
 
-        JTable table = new JTable(DataJson, columnNames) {
+        JTable table = new JTable(DataJson, extendedColumnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -226,7 +216,12 @@ public class Frame {
                     }
                 }, panel);
                 buttonPret.setBackground(styles.okColor);
-                buttonPret.setEnabled(false); // Désactive le bouton "Commande prête" par défaut
+
+                JSONObject commande = jsonArray.getJSONObject(selectedRow);
+
+                if (commande.getInt("id_etat") != 2){
+                    buttonPret.setEnabled(false);
+                }
 
                 JButton buttonAccepter = createButton("Accepter", new ActionListener() {
                     @Override
@@ -252,14 +247,33 @@ public class Frame {
                 }, panel);
                 buttonRefuser.setBackground(styles.warningColor);
 
+                // creation d'un panel pour les boutons
+                JPanel buttonPanel2 = new JPanel();
 
-                // Add panel to the content panel
+// configuration du panel
+                buttonPanel2.setLayout(new GridLayout(12, 1));
+
+// Ajout des boutons
+                buttonPanel2.add(buttonReturn);
+                buttonPanel2.add(buttonAccepter);
+                buttonPanel2.add(buttonRefuser);
+                buttonPanel2.add(buttonPret);
+
+// place les boutons à gauche
+                panel.add(buttonPanel2, BorderLayout.WEST);
+                panel.add(scrollPanel, BorderLayout.CENTER);
+                panel.setVisible(true);
+                panel.revalidate();
+                panel.repaint();
+
+// ajoute le panel à la liste des panels
+                contentPanel.add(panel, "detailPanel");
+
+// affiche le panel
                 Frame.this.frame.setContentPane(panel);
 
                 Frame.this.frame.revalidate();
                 Frame.this.frame.repaint();
-
-
             }
         }, contentPanel);
         buttonDetails.setBackground(styles.detailsColor);
@@ -275,9 +289,9 @@ public class Frame {
 
         buttonPanel.add(buttonDetails);
         buttonPanel.add(buttonExit);
-
         frame.add(buttonPanel, BorderLayout.WEST);
         frame.add(scrollPanel, BorderLayout.CENTER);
+
         contentPanel.setVisible(true);
         frame.setVisible(true);
     }
