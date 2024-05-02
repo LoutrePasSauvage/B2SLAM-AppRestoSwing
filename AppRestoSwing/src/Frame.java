@@ -77,7 +77,6 @@ public class Frame {
             JSONObject commande = jsonArray.getJSONObject(i);
 
 
-
             // store lignesCommande
             if (commande.has("lignes")) {
                 JSONArray lignes = commande.getJSONArray("lignes");
@@ -141,7 +140,6 @@ public class Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
                 // affiche le détail de la commande a partir de la ligne selectionnée
                 int selectedRow = table.getSelectedRow();
                 int idCommande = Integer.parseInt((String) table.getValueAt(selectedRow, 3));
@@ -170,8 +168,6 @@ public class Frame {
                     public boolean isCellEditable(int row, int column) {
                         return false;
                     }
-
-
                 };
 
 
@@ -184,8 +180,6 @@ public class Frame {
                 JScrollPane scrollPanel = new JScrollPane(table);
                 scrollPanel.setBackground(styles.secondaryColor);
                 contentPanel.add(scrollPanel, "mainPanel");
-
-
                 panel.add(scrollPanel);
 
                 JButton buttonReturn = createButton("Retour", new ActionListener() {
@@ -219,7 +213,7 @@ public class Frame {
 
                 JSONObject commande = jsonArray.getJSONObject(selectedRow);
 
-                if (commande.getInt("id_etat") != 2){
+                if (commande.getInt("id_etat") != 2) {
                     buttonPret.setEnabled(false);
                 }
 
@@ -259,21 +253,30 @@ public class Frame {
                 buttonPanel2.add(buttonRefuser);
                 buttonPanel2.add(buttonPret);
 
+
 // place les boutons à gauche
-                panel.add(buttonPanel2, BorderLayout.WEST);
-                panel.add(scrollPanel, BorderLayout.CENTER);
+                panel.add(buttonPanel2);
                 panel.setVisible(true);
                 panel.revalidate();
                 panel.repaint();
+                panel.setBackground(styles.primaryColor);
+
+                panel.setLayout(new BorderLayout());
+
+                panel.add(scrollPanel, BorderLayout.CENTER);
+                panel.add(buttonPanel2, BorderLayout.WEST);
+                buttonPanel2.setBackground(styles.primaryColor);
 
 // ajoute le panel à la liste des panels
                 contentPanel.add(panel, "detailPanel");
+
 
 // affiche le panel
                 Frame.this.frame.setContentPane(panel);
 
                 Frame.this.frame.revalidate();
                 Frame.this.frame.repaint();
+
             }
         }, contentPanel);
         buttonDetails.setBackground(styles.detailsColor);
